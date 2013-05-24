@@ -1,0 +1,9 @@
+<phpunit bootstrap="bootstrap.php">
+  <testsuites>
+    <testsuite name="WillSkates_Dictionary">
+      <file>tests/Dictionary/APITest.php</file>
+      <file>tests/Dictionary/DictionaryTest.php</file>
+      <file>tests/Dictionary/WordTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
