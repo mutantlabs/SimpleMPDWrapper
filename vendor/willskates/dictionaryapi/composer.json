@@ -1,0 +1,26 @@
+{
+    "name": "willskates/dictionaryapi",
+    "type": "library",
+    "description": "On-demand definition source.",
+    "keywords": ["Dictionary", "definition", "translation"],
+    "homepage": "http://github.com/WillSkates/dictionary-api-wrapper",
+    "license": "BSD",
+    "authors": [
+    	{
+    		"name": "Will Skates",
+    		"email": "will.skates@ntlworld.com",
+    		"homepage": "http://www.thisbe.ws",
+    		"role": "developer"
+    	}
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "rmccue/requests": "dev-master",
+        "pimple/pimple": "1.0.*@dev"
+    },
+    "autoload": {
+    	"psr-0": {
+    		"WillSkates": "src/"
+    	}
+    }
+}

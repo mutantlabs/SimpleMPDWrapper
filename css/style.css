@@ -1,0 +1,11 @@
+body {
+	margin-top: 10px;
+}
+
+.icon-thumbs-up {
+	color: green;
+}
+
+.icon-thumbs-down {
+	color: red;
+}

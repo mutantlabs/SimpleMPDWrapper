@@ -1,0 +1,151 @@
+{
+    "hash": "a1dd50d6e7af95db3d1d048204de4a24",
+    "packages": [
+        {
+            "name": "pimple/pimple",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Pimple.git",
+                "reference": "v1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Pimple/archive/v1.0.1.zip",
+                "reference": "v1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-11-11 08:32:34",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "dependency injection",
+                "container"
+            ]
+        },
+        {
+            "name": "rmccue/requests",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmccue/Requests.git",
+                "reference": "eee30254c2ba314ad7fe3bc493095af421118c27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/rmccue/Requests/archive/eee30254c2ba314ad7fe3bc493095af421118c27.zip",
+                "reference": "eee30254c2ba314ad7fe3bc493095af421118c27",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "time": "2012-10-25 14:01:26",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Requests": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan McCue",
+                    "homepage": "http://ryanmccue.info"
+                }
+            ],
+            "description": "A HTTP library written in PHP, for human beings.",
+            "homepage": "http://github.com/rmccue/Requests",
+            "keywords": [
+                "ipv6",
+                "curl",
+                "http",
+                "idna",
+                "iri",
+                "sockets",
+                "fsockopen"
+            ]
+        },
+        {
+            "name": "willskates/dictionaryapi",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WillSkates/dictionary-api-wrapper.git",
+                "reference": "v1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/WillSkates/dictionary-api-wrapper/archive/v1.0.0.zip",
+                "reference": "v1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "rmccue/requests": "dev-master",
+                "pimple/pimple": "1.0.*@dev"
+            },
+            "time": "2013-01-21 20:46:42",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WillSkates": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Will Skates",
+                    "email": "will.skates@ntlworld.com",
+                    "homepage": "http://www.stuffby.ws",
+                    "role": "developer"
+                }
+            ],
+            "description": "On-demand definition source.",
+            "homepage": "http://github.com/WillSkates/dictionary-api-wrapper",
+            "keywords": [
+                "translation",
+                "dictionary",
+                "definition"
+            ]
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "rmccue/requests": 20
+    }
+}

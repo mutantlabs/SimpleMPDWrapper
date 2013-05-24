@@ -1,0 +1,6 @@
+{
+	"require": {
+	"rmccue/requests": "dev-master",
+	"willskates/dictionaryapi": "v1.0.0"
+	}
+}
