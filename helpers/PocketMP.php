@@ -65,7 +65,7 @@ class PocketMP {
             $ret[$c]=$got;
             $c++;
         }
-        echo("<pre>");
+        
         $sentResponse = array(
             'response' => $this->response,
             'got' => $got,
