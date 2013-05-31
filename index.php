@@ -22,10 +22,11 @@
         })
         ->addGetRoute('addTrackToPlaylist/(.*)', function($data){
             $mp = new PocketMP("","192.168.1.120",6600,0);
-            $mp->send('add', $data);
+
             $response = array(
                 'message' => 'track sent to mutant playlist',
-                'track' => $data
+                'track' => $data,
+                'response' => $mp->send('add', $data)
             );
             return $response;
         })
@@ -44,11 +45,11 @@
         })
         ->addGetRoute('play',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
-            $mp->send('play', "");
+            return $mp->send('play', "");
         })
         ->addGetRoute('pause',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
-            $mp->send('pause', "");
+            return $mp->send('pause', "");
         })
         ->run();
 
