@@ -13,6 +13,7 @@
                 'message' => 'Welcome to the Mutant Pi API',
                 'view this nicely' => 'http://jsonview.com/',
                 'menu' => array(
+                    'status' => $baseUrl->url()."status",
                     'add song' => $baseUrl->url()."add",
                     'control player' => $baseUrl->url()."control",
                     'current song' => $baseUrl->url()."current",
@@ -22,6 +23,10 @@
                 )
             );
             return $response;
+        })
+        ->addGetRoute('status',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('status', "");
         })
         ->addGetRoute('add/(.*)', function($data){
             $mp = new PocketMP("","192.168.1.120",6600,0);
