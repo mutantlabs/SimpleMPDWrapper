@@ -3,17 +3,45 @@
 <head>
     <!--<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>-->
     <title>Drag And Drop</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-    <style>#slider { margin: 10px; }	</style>
+
+    <style>#slider {
+        margin: 10px;
+    }	</style>
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 </head>
 
 <body>
 <!--<div id="viz"></div>-->
-<div id="slider"></div>
+<div class="container">
+    <div class="row">
+        <div class="span5">
+            <h1>Play on player</h1>
+            <div class="well">
+                <h2>Volume</h2>
+                <div id="slider"></div>
+            </div>
+
+            <div class="well">
+                <button data-action="play" class="control btn btn-inverse">Play ></button>
+                <button data-action="pause" class="control btn btn-inverse">Pause ||</button>
+                <button data-action="prev" class="control btn btn-inverse"><< Prev</button>
+                <button data-action="next" class="control btn btn-inverse">Next >></button>
+            </div>
+
+            <div class="well">
+                <blockquote class="currentTrack"></blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
     var vizSVG = d3.select("#viz")
@@ -76,8 +104,9 @@
     };
 
     var value,slider = $("#slider").slider();
-
+    var currentTrack = $('.currentTrack');
     getVolume();
+    getCurrent();
 
     slider.on( "slidestop", function( event, ui ) {
         value = ui.value;
@@ -121,6 +150,30 @@
         return Math.round((value / max) * 100);
     }
 
+    var controlButton = $('.control');
+
+    controlButton.click(function() {
+        action = $(this).attr('data-action');
+        console.log(action);
+        control(action);
+    })
+
+    function control(control) {
+        $.ajax({
+            type: "GET",
+            url: 'control/' + control,
+            dataType: "json",
+            success:function(json){
+                console.log(json);
+                currentTrack.html('');
+                getCurrent();
+            },
+            error:function(){
+                console.log("no reponse");
+            }
+        });
+    }
+
     function getCurrent() {
 
         $.ajax({
@@ -128,8 +181,17 @@
             url: 'current',
             dataType: "json",
             success:function(json){
-                console.log(json);
-                var current = json;
+                console.log(json.data);
+                currentTrack.append(json.data.ret[0] + "<br>");
+                currentTrack.append(json.data.ret[1] + "<br>");
+                currentTrack.append(json.data.ret[2] + "<br>");
+                currentTrack.append(json.data.ret[3] + "<br>");
+                currentTrack.append(json.data.ret[4] + "<br>");
+                currentTrack.append(json.data.ret[5] + "<br>");
+                currentTrack.append(json.data.ret[6] + "<br>");
+                currentTrack.append(json.data.ret[7] + "<br>");
+                currentTrack.append(json.data.ret[8] + "<br>");
+                currentTrack.append(json.data.ret[9] + "<br>");
             },
             error:function(){
                 console.log("no reponse");
