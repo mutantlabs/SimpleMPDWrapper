@@ -2,6 +2,7 @@
 
     include 'vendor/autoload.php';
     include 'helpers/BaseUrl.php';
+    include 'helpers/PocketMP.php';
 
     use RestService\Server;
 
@@ -20,6 +21,8 @@
             return $response;
         })
         ->addGetRoute('addTrackToPlaylist/(.*)', function($data){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp->send('add', $data);
             $response = array(
                 'message' => 'track sent to mutant playlist',
                 'track' => $data
@@ -38,6 +41,14 @@
                 )
             );
             return $response;
+        })
+        ->addGetRoute('play',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp->send('play', "");
+        })
+        ->addGetRoute('pause',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp->send('pause', "");
         })
         ->run();
 
