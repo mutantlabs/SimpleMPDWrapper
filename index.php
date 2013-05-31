@@ -6,9 +6,6 @@
 
     use RestService\Server;
 
-
-
-
     Server::create('/')
         ->addGetRoute('', function(){
             $baseUrl = new BaseUrl();
@@ -22,7 +19,6 @@
         })
         ->addGetRoute('addTrackToPlaylist/(.*)', function($data){
             $mp = new PocketMP("","192.168.1.120",6600,0);
-
             $response = array(
                 'message' => 'track sent to mutant playlist',
                 'track' => $data,
@@ -42,6 +38,10 @@
                 )
             );
             return $response;
+        })
+        ->addGetRoute('controlPlayer/(.*)',function($action){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send($action, "");
         })
         ->addGetRoute('play',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
