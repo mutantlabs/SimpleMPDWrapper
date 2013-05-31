@@ -51,6 +51,10 @@
             $mp = new PocketMP("","192.168.1.120",6600,0);
             return $mp->send('pause', "");
         })
+        ->addGetRoute('currentsong',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('currentsong', "");
+        })
         ->run();
 
 
