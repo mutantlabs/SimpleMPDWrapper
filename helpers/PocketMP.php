@@ -50,7 +50,7 @@ class PocketMP {
 
     public function send($method,$string) { //Retrieve Status Information from MPD
 
-        $command = ($method && $method == "add") ? "$method \"$string\"": $method;
+        $command = ($method == "add" || $method == "setvol") ? "$method \"$string\"": $method;
 
         $fp = $this->fp;
         fputs($fp,"$command\n"); //Do desired action!

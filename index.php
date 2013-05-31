@@ -11,10 +11,14 @@
             $baseUrl = new BaseUrl();
             $response = array(
                 'message' => 'Welcome to the Mutant Pi API',
+                'view this nicely' => 'http://jsonview.com/',
                 'menu' => array(
                     'add song' => $baseUrl->url()."add",
                     'control player' => $baseUrl->url()."control",
-                    'current song' => $baseUrl->url()."current"
+                    'current song' => $baseUrl->url()."current",
+                    'volume to integer' => $baseUrl->url()."volume",
+                    'volume up' => $baseUrl->url()."volUp",
+                    'volume down' => $baseUrl->url()."volDown"
                 )
             );
             return $response;
@@ -44,11 +48,11 @@
         ->addGetRoute('control',function(){
             $baseUrl = new BaseUrl();
             $response = array(
-                'message' => 'Requires a valid spotify URI',
+                'message' => 'play, pause etc',
                 'options' => array(
-                    'default' => array(
-                        "play" => $baseUrl->url()."/control/play",
-                        "pause" => $baseUrl->url()."/control/pause"
+                    'e.g.' => array(
+                        "play" => $baseUrl->url()."/play",
+                        "pause" => $baseUrl->url()."/pause"
                     )
                 )
             );
@@ -61,6 +65,49 @@
         ->addGetRoute('current',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
             return $mp->send('currentsong', "");
+        })
+        ->addGetRoute('volume',function(){
+            $baseUrl = new BaseUrl();
+            $response = array(
+                'message' => 'set vol to integer',
+                'options' => array(
+                    'e.g.' => array(
+                        "50%" => $baseUrl->url()."/50",
+                        "100%" => $baseUrl->url()."/100"
+                    )
+                )
+            );
+            return $response;
+        })
+        ->addGetRoute('volume/(.*)',function($volume){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('setvol', $volume);
+        })
+        ->addGetRoute('getVolume',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $data = $mp->send('status', '');
+            $volume = explode(":",$data['ret'][0]);
+            return array('volume' => (int)$volume[1]);
+        })
+        ->addGetRoute('volUp',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $data = $mp->send('status', '');
+            $volume = explode(":",$data['ret'][0]);
+            $newVolume = $volume[1] + 1;
+            $mp->send('setvol', (int)$newVolume);
+            return array(
+                'volume' => (int)$newVolume
+            );
+        })
+        ->addGetRoute('volDown',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $data = $mp->send('status', '');
+            $volume = explode(":",$data['ret'][0]);
+            $newVolume = $volume[1] - 1;
+            $mp->send('setvol', (int)$newVolume);
+            return array(
+                'volume' => (int)$newVolume
+            );
         })
         ->run();
 
