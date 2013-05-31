@@ -1,5 +1,15 @@
 <?php
+    include 'vendor/autoload.php';
 
-    echo json_encode(array('message' => 'hello'));
+    use RestService\Server;
+
+    Server::create('/')
+        ->addGetRoute('test', function(){
+            return 'Yay!';
+        })
+        ->addGetRoute('foo/(.*)', function($bar){
+            return $bar;
+        })
+        ->run();
 
 ?>
