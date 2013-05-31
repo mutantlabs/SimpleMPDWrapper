@@ -9,7 +9,7 @@
 
 class PocketMP {
     private $fp;
-
+    private $response;
     public function __construct($pass = "",$host = "192.168.1.120",$port = 6600,$refresh = 0) {
 
         if(!isset($srch)) {
@@ -24,7 +24,7 @@ class PocketMP {
                 $got = fgets($fp,1024);
                 if(strncmp("OK",$got,strlen("OK"))==0) //MPD Ready...
                 break;
-                print "$got<br>";
+                $this->response = "$got<br>";
                 if(strncmp("ACK",$got,strlen("ACK"))==0) //What's going wrong?
                 break;
             }
@@ -36,7 +36,7 @@ class PocketMP {
                         #print "Login Succesful<br>\n";
                         break;
                     }
-                    print "$got<br>";
+                    $this->response = "$got<br>";
                     if(strncmp("ACK",$got,strlen("ACK"))==0) //Password Wrong
                     break;
                     die("Wrong Password?");
@@ -66,8 +66,13 @@ class PocketMP {
             $c++;
         }
         echo("<pre>");
-        print_r($got);
-        print_r($ret);
+        $sentResponse = array(
+            'response' => $this->response,
+            'got' => $got,
+            'ret' => $ret
+        );
+        return $sentResponse;
+
     }
 
 }
