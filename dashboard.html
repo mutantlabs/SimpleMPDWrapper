@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <!--<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>-->
     <title>Drag And Drop</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <style>#slider { margin: 10px; }	</style>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 </head>
+
 <body>
+<!--<div id="viz"></div>-->
+<div id="slider"></div>
 
-<div id="viz"></div>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript">
 
     var vizSVG = d3.select("#viz")
@@ -64,9 +70,40 @@
             xPosition = d3.event.x;
         }
 
+        setVolume(0,400,xPosition);
+
+
+    };
+
+    var value,slider = $("#slider").slider();
+
+    getVolume();
+
+    slider.on( "slidestop", function( event, ui ) {
+        value = ui.value;
+        setVolume(0,100,value);
+        console.log(value);
+    } );
+
+    function getVolume() {
         $.ajax({
             type: "GET",
-            url: 'volume/' + scale(0,400,xPosition),
+            url: 'getVolume',
+            dataType: "json",
+            success:function(json){
+                console.log(json.data.volume);
+                slider.slider({ value: json.data.volume });
+            },
+            error:function(){
+                console.log("no reponse");
+            }
+        });
+    }
+
+    function setVolume(min,max,value) {
+        $.ajax({
+            type: "GET",
+            url: 'volume/' + scale(min,max,value),
             dataType: "json",
             success:function(json){
                 console.log(json);
@@ -77,15 +114,32 @@
             }
         });
 
-        console.log(scale(0,400,xPosition));
+        console.log(scale(min,max,value));
+    }
 
-        function scale(min,max,value) {
-            return Math.round((value / max) * 100);
-        }
-    };
+    function scale(min,max,value) {
+        return Math.round((value / max) * 100);
+    }
+
+    function getCurrent() {
+
+        $.ajax({
+            type: "GET",
+            url: 'current',
+            dataType: "json",
+            success:function(json){
+                console.log(json);
+                var current = json;
+            },
+            error:function(){
+                console.log("no reponse");
+            }
+        });
+
+    }
 
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 </body>
 
 
