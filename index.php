@@ -12,12 +12,14 @@
             $response = array(
                 'message' => 'Welcome to the Mutant Pi API',
                 'menu' => array(
-                    'spotify' => $baseUrl->url()."addTrackToPlaylist"
+                    'add song' => $baseUrl->url()."add",
+                    'control player' => $baseUrl->url()."control",
+                    'current song' => $baseUrl->url()."current"
                 )
             );
             return $response;
         })
-        ->addGetRoute('addTrackToPlaylist/(.*)', function($data){
+        ->addGetRoute('add/(.*)', function($data){
             $mp = new PocketMP("","192.168.1.120",6600,0);
             $response = array(
                 'message' => 'track sent to mutant playlist',
@@ -26,7 +28,7 @@
             );
             return $response;
         })
-        ->addGetRoute('addTrackToPlaylist', function(){
+        ->addGetRoute('add', function(){
             $baseUrl = new BaseUrl();
             $response = array(
                 'message' => 'Requires a valid spotify URI',
@@ -39,19 +41,24 @@
             );
             return $response;
         })
-        ->addGetRoute('controlPlayer/(.*)',function($action){
+        ->addGetRoute('control',function(){
+            $baseUrl = new BaseUrl();
+            $response = array(
+                'message' => 'Requires a valid spotify URI',
+                'options' => array(
+                    'default' => array(
+                        "play" => $baseUrl->url()."/control/play",
+                        "pause" => $baseUrl->url()."/control/pause"
+                    )
+                )
+            );
+            return $response;
+        })
+        ->addGetRoute('control/(.*)',function($action){
             $mp = new PocketMP("","192.168.1.120",6600,0);
             return $mp->send($action, "");
         })
-        ->addGetRoute('play',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
-            return $mp->send('play', "");
-        })
-        ->addGetRoute('pause',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
-            return $mp->send('pause', "");
-        })
-        ->addGetRoute('currentsong',function(){
+        ->addGetRoute('current',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
             return $mp->send('currentsong', "");
         })
