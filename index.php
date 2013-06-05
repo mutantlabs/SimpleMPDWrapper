@@ -19,7 +19,8 @@
                     'current song' => $baseUrl->url()."current",
                     'volume to integer' => $baseUrl->url()."volume",
                     'volume up' => $baseUrl->url()."volUp",
-                    'volume down' => $baseUrl->url()."volDown"
+                    'volume down' => $baseUrl->url()."volDown",
+                    'clear playlist' => $baseUrl->url()."clear"
                 )
             );
             return $response;
@@ -104,6 +105,7 @@
                 'volume' => (int)$newVolume
             );
         })
+        
         ->addGetRoute('volDown',function(){
             $mp = new PocketMP("","192.168.1.120",6600,0);
             $data = $mp->send('status', '');
@@ -113,6 +115,10 @@
             return array(
                 'volume' => (int)$newVolume
             );
+        })
+        ->addGetRoute('clear',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('clear', '');
         })
         ->run();
 
