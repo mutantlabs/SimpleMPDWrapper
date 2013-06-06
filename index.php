@@ -120,6 +120,18 @@
             $mp = new PocketMP("","192.168.1.120",6600,0);
             return $mp->send('clear', '');
         })
+        ->addGetRoute('random/(.*)',function($int){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('random', $int);
+        })
+        ->addGetRoute('repeat/(.*)',function($int){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('repeat', $int);
+        })
+        ->addGetRoute('playlist',function(){
+            $mp = new PocketMP("","192.168.1.120",6600,0);
+            return $mp->send('playlistinfo', '');
+        })
         ->run();
 
 
