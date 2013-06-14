@@ -65,11 +65,21 @@ class SimpleMPDWrapper {
      Our send method handles all commands and responses, you can use this directly or the quick method wrappers below
     */
 
-    public function send($method,$string="") {
+    public function send($method,$arg1="",$arg2="") {
 
         // if we have a string, send it as well
-        $command = ($string != "") ? "$method \"$string\"": $method;
+        if($arg1 != "" && $arg2 != "")
+        {
+            $command = "$method \"$arg1\" \"$arg2\"";
+        }
+        elseif($arg1 != "") {
+            $command = "$method \"$arg1\"";
+        }
+        else {
+            $command = $method;
+        }
 
+        echo $command;
         fputs($this->fp,"$command\n"); //Do desired action!
         $c = 0;
         while(!feof($this->fp)) {
@@ -119,6 +129,18 @@ class SimpleMPDWrapper {
     }
 
     public function status() {
-            return $this->send("status"); // no second parameter null as status requires no args
+        return $this->send("status"); // no second parameter null as status requires no args
+    }
+
+    public function clear() {
+        return $this->send("clear");
+    }
+
+    public function currentSong() {
+        return $this->send("currentsong");
+    }
+
+    public function move($from,$to) {
+        return $this->send("move", $from,$to);
     }
 }

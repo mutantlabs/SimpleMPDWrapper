@@ -138,6 +138,10 @@
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('playlistinfo');
         })
+        ->addGetRoute('move/(.*)/(.*)',function($from,$to){
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            return $mp->move($from,$to);
+        })
         ->run();
 
 
