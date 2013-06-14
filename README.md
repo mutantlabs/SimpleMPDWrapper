@@ -3,14 +3,20 @@ SimpleMPDWrapper
 
 Simple PHP Wrapper for MDP is a PHP class for interfacing with the MPD Music Daemon. It allows you to develop an API to interface with MPD
 
-SimpleMPDWrapper Class useage
+#SimpleMPDWrapper Class useage
 
-// Construct a new PocketMp instance
-// Required parameters: Password, MPD Server address, Port, Refresh interval
+Construct a new PocketMp instance
+Required parameters: Password, MPD Server address, Port, Refresh interval
+```php
 $mp = new PocketMP("","192.168.0.1",6600,0);
+```
 
-// Send a command using the send method:
+Send a command using the send method:
+```php
 echo json_encode($mp->send("add", "spotify:track:48mZ0CGCffjH49h5lAPTIe"));
+```
 
-// Or utilise the quick method wrappers
+Or utilise the quick method wrappers
+```php
 echo json_encode($mp->add("spotify:track:48mZ0CGCffjH49h5lAPTIe"));
+```
