@@ -11,7 +11,7 @@ Include SimpleMPDWrapper
 include 'SimpleMPDWrapper.php';
 ```
 
-Construct a new PocketMp instance
+Construct a new SimpleMPDWrapper instance
 Required parameters: Password, MPD Server address, Port, Refresh interval
 ```php
 $mp = new PocketMP("","192.168.0.1",6600,0);
