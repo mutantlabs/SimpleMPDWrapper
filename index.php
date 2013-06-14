@@ -2,7 +2,7 @@
 
     include 'vendor/autoload.php';
     include 'helpers/BaseUrl.php';
-    include 'helpers/PocketMP.php';
+    include 'helpers/SimpleMPDWrapper.php';
 
     use RestService\Server;
 
@@ -26,15 +26,15 @@
             return $response;
         })
         ->addGetRoute('status',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('status', "");
         })
         ->addGetRoute('add/(.*)', function($data){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             $response = array(
                 'message' => 'track sent to mutant playlist',
                 'track' => $data,
-                'response' => $mp->send('add', $data)
+                'response' => $mp->add($data)
             );
             return $response;
         })
@@ -65,11 +65,11 @@
             return $response;
         })
         ->addGetRoute('control/(.*)',function($action){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send($action, "");
         })
         ->addGetRoute('current',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('currentsong', "");
         })
         ->addGetRoute('volume',function(){
@@ -86,17 +86,17 @@
             return $response;
         })
         ->addGetRoute('volume/(.*)',function($volume){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('setvol', $volume);
         })
         ->addGetRoute('getVolume',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             $data = $mp->send('status', '');
             $volume = explode(":",$data['ret'][0]);
             return array('volume' => (int)$volume[1]);
         })
         ->addGetRoute('volUp',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             $data = $mp->send('status', '');
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] + 1;
@@ -107,7 +107,7 @@
         })
         
         ->addGetRoute('volDown',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             $data = $mp->send('status', '');
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] - 1;
@@ -117,19 +117,19 @@
             );
         })
         ->addGetRoute('clear',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('clear', '');
         })
         ->addGetRoute('random/(.*)',function($int){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('random', $int);
         })
         ->addGetRoute('repeat/(.*)',function($int){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('repeat', $int);
         })
         ->addGetRoute('playlist',function(){
-            $mp = new PocketMP("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
             return $mp->send('playlistinfo', '');
         })
         ->run();
