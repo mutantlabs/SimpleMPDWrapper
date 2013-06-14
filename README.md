@@ -5,6 +5,12 @@ Simple PHP Wrapper for MDP is a PHP class for interfacing with the MPD Music Dae
 
 #SimpleMPDWrapper Class usage
 
+Include SimpleMPDWrapper
+
+```php
+include 'SimpleMPDWrapper.php';
+```
+
 Construct a new PocketMp instance
 Required parameters: Password, MPD Server address, Port, Refresh interval
 ```php
