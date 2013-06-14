@@ -1,8 +1,14 @@
 <?php
 
+    /*
+
+    Example of an API using SimpleMPDWrapper and https://github.com/marcj/php-rest-service
+
+    */
+
     include 'vendor/autoload.php';
     include 'helpers/BaseUrl.php';
-    include 'helpers/SimpleMPDWrapper.php';
+    include 'SimpleMPDWrapper.php';
 
     use RestService\Server;
 
@@ -10,7 +16,7 @@
         ->addGetRoute('', function(){
             $baseUrl = new BaseUrl();
             $response = array(
-                'message' => 'Welcome to the Mutant Pi API',
+                'message' => 'Welcome to the Mutant MPD API',
                 'view this nicely' => 'http://jsonview.com/',
                 'menu' => array(
                     'status' => $baseUrl->url()."status",
@@ -91,13 +97,13 @@
         })
         ->addGetRoute('getVolume',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            $data = $mp->send('status', '');
+            $data = $mp->send('status');
             $volume = explode(":",$data['ret'][0]);
             return array('volume' => (int)$volume[1]);
         })
         ->addGetRoute('volUp',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            $data = $mp->send('status', '');
+            $data = $mp->status();
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] + 1;
             $mp->send('setvol', (int)$newVolume);
@@ -108,7 +114,7 @@
         
         ->addGetRoute('volDown',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            $data = $mp->send('status', '');
+            $data = $mp->send('status');
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] - 1;
             $mp->send('setvol', (int)$newVolume);
@@ -118,7 +124,7 @@
         })
         ->addGetRoute('clear',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            return $mp->send('clear', '');
+            return $mp->send('clear');
         })
         ->addGetRoute('random/(.*)',function($int){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
@@ -130,7 +136,7 @@
         })
         ->addGetRoute('playlist',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            return $mp->send('playlistinfo', '');
+            return $mp->send('playlistinfo');
         })
         ->run();
 
