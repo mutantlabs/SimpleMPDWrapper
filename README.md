@@ -90,5 +90,5 @@ Server::create('/')
 License
 -------
 
-Licensed under the MIT License. See the LICENSE file for more details.
-marcj/php-rest-service is Licensed under the MIT License. See https://github.com/marcj/php-rest-service/blob/master/LICENSE for more details
+ - Licensed under the MIT License. See the LICENSE file for more details.
+ - marcj/php-rest-service is Licensed under the MIT License. See https://github.com/marcj/php-rest-service/blob/master/LICENSE for more details
