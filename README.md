@@ -65,7 +65,7 @@ RewriteEngine On
 RewriteRule (.+) index.php/$1 [L]
 ```
 
-SimpleMPDWrapper API Method using php-rest-service Demo
+SimpleMPDWrapper API Method using php-rest-service
 ----------
 
 ```php
