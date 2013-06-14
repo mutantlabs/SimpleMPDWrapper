@@ -69,21 +69,20 @@ SimpleMPDWrapper API Method using php-rest-service Demo
 ----------
 
 ```php
-    include 'vendor/autoload.php';
-    include 'helpers/BaseUrl.php';
-    include 'SimpleMPDWrapper.php';
+include 'vendor/autoload.php';
+include 'SimpleMPDWrapper.php';
 
-    use RestService\Server;
+use RestService\Server;
 
-    Server::create('/')
-    ->addGetRoute('add/(.*)', function($data){
-                $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-                $response = array(
-                    'message' => 'track sent to mutant playlist',
-                    'track' => $data,
-                    'response' => $mp->add($data)
-                );
-                return $response;
-            })
-    ->run();
+Server::create('/')
+->addGetRoute('add/(.*)', function($data){
+            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $response = array(
+                'message' => 'track sent to mutant playlist',
+                'track' => $data,
+                'response' => $mp->add($data)
+            );
+            return $response;
+        })
+->run();
 ```
