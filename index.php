@@ -8,9 +8,10 @@
 
     include 'vendor/autoload.php';
     include 'helpers/BaseUrl.php';
-    include 'SimpleMPDWrapper.php';
+    include 'MPDWrapper/SimpleMPDWrapper.php';
 
-    use RestService\Server;
+use MPDWrapper\SimpleMPDWrapper;
+use RestService\Server;
 
     Server::create('/')
         ->addGetRoute('', function(){
@@ -32,11 +33,11 @@
             return $response;
         })
         ->addGetRoute('status',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
-            return $mp->send('status', "");
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
+            return $mp->status();
         })
         ->addGetRoute('add/(.*)', function($data){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             $response = array(
                 'message' => 'track sent to mutant playlist',
                 'track' => $data,
@@ -71,11 +72,11 @@
             return $response;
         })
         ->addGetRoute('control/(.*)',function($action){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send($action, "");
         })
         ->addGetRoute('current',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('currentsong', "");
         })
         ->addGetRoute('volume',function(){
@@ -92,17 +93,17 @@
             return $response;
         })
         ->addGetRoute('volume/(.*)',function($volume){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('setvol', $volume);
         })
         ->addGetRoute('getVolume',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             $data = $mp->send('status');
             $volume = explode(":",$data['ret'][0]);
             return array('volume' => (int)$volume[1]);
         })
         ->addGetRoute('volUp',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             $data = $mp->status();
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] + 1;
@@ -113,7 +114,7 @@
         })
         
         ->addGetRoute('volDown',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             $data = $mp->send('status');
             $volume = explode(":",$data['ret'][0]);
             $newVolume = $volume[1] - 1;
@@ -123,23 +124,23 @@
             );
         })
         ->addGetRoute('clear',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('clear');
         })
         ->addGetRoute('random/(.*)',function($int){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('random', $int);
         })
         ->addGetRoute('repeat/(.*)',function($int){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('repeat', $int);
         })
         ->addGetRoute('playlist',function(){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->send('playlistinfo');
         })
         ->addGetRoute('move/(.*)/(.*)',function($from,$to){
-            $mp = new SimpleMPDWrapper("","192.168.1.120",6600,0);
+            $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
             return $mp->move($from,$to);
         })
         ->run();

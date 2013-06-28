@@ -21,6 +21,7 @@
     echo json_encode($mp->add("spotify:track:48mZ0CGCffjH49h5lAPTIe"));
 
 */
+namespace MPDWrapper;
 
 class SimpleMPDWrapper {
     private $fp;
