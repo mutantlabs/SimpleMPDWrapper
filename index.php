@@ -77,7 +77,7 @@ use RestService\Server;
         })
         ->addGetRoute('current',function(){
             $mp = new SimpleMPDWrapper("","192.168.1.121",6600,0);
-            return $mp->send('currentsong', "");
+            return $mp->currentSong();
         })
         ->addGetRoute('volume',function(){
             $baseUrl = new BaseUrl();
