@@ -7,7 +7,7 @@ Depends on https://github.com/marcj/php-rest-service
 
 Install simplempd with Composer:
 
- - https://packagist.org/packages/marcj/php-rest-service.
+ - https://packagist.org/packages/mutantlabs/simplempd.
  - More information available under https://packagist.org/.
 
 Create a `composer.json`:
