@@ -80,7 +80,7 @@ class SimpleMPDWrapper {
             $command = $method;
         }
 
-        
+
         fputs($this->fp,"$command\n"); //Do desired action!
         $c = 0;
         while(!feof($this->fp)) {

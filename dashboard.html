@@ -33,6 +33,14 @@
 
             <div class="well">
                 <blockquote class="currentTrack"></blockquote>
+                <div class="input-append">
+                    <input class="addTrack span3" id="appendedInputButton" type="text">
+                    <a class="addTrackButton btn btn-inverse">Add Song</a>
+                </div>
+
+                <div class="alert alert-success addTrackSuccess" style="display:none;">
+                    Track Added
+                </div>
             </div>
         </div>
     </div>
@@ -105,6 +113,7 @@
 
     var value,slider = $("#slider").slider();
     var currentTrack = $('.currentTrack');
+
     getVolume();
     getCurrent();
 
@@ -113,6 +122,19 @@
         setVolume(0,100,value);
         console.log(value);
     } );
+
+    var addSongButton = $('.addTrackButton');
+    var addTrackInput = $('.addTrack');
+    var addTrackSuccess = $('.addTrackSuccess');
+
+    addSongButton.click(function(e) {
+        e.preventDefault();
+        var uri = addTrackInput.val();
+        var added = addSong(uri);
+        console.log(added);
+        addTrackSuccess.fadeIn();
+    });
+
 
     function getVolume() {
         $.ajax({
@@ -198,6 +220,23 @@
             }
         });
 
+    }
+
+    function addSong(uri) {
+        $.ajax({
+            type: "GET",
+            url: 'add/' + uri,
+            dataType: "json",
+            success:function(json){
+                console.log(json);
+                return true;
+
+            },
+            error:function(){
+                console.log("no reponse");
+                return false;
+            }
+        });
     }
 
 </script>
